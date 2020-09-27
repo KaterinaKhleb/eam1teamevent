@@ -223,7 +223,7 @@ export default {
            }
         payload.week = this.week
 
-        axios.post("http://localhost:8080/savevote", payload)
+        axios.post("/savevote", payload)
         this.$nextTick(() => {
 
         })
@@ -233,7 +233,7 @@ export default {
       deleteVote() {
         let payload = {}
         payload.name = this.nameInput
-        axios.post("http://localhost:8080/deletevote", payload)
+        axios.post("/deletevote", payload)
         this.$nextTick(() => {
           window.location.reload()
         })
@@ -250,7 +250,7 @@ export default {
       let week = Math.ceil( (((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7 );
       this.week = week
 
-      const response = await axios.post("http://localhost:8080/votes", {week: week})
+      const response = await axios.post("/votes", {week: week})
       const votes = response.data
 
       
