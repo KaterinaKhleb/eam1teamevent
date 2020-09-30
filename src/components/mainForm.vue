@@ -142,9 +142,14 @@
                     <p> <img class="icon" src="../assets/iamin.png"> {{person}}</p>
                   </div>
                  </div>
-                  
-                   
 
+                  <div class="display: flex">
+                      <input type="checkbox" id="never" v-model="never"  name="color" value="never">
+                    <label style="display:flex" for="never"> not this week <span style='font-size:20px; margin-left:7px'>&#128557;</span></label>
+                    <div v-for="person in neverPeople" :key="person.index" >
+                      <p><img class="icon" src="../assets/iamin.png"> {{person}}</p>
+                    </div>
+                  </div>
    
                 </div>
 
@@ -157,6 +162,7 @@
             </form>
 
       </div>
+      <img  src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves"  width=80/>
   </div>
 </template>
 
@@ -175,6 +181,7 @@ export default {
                 wed:  false,
                 thur: false,
                 fri: false,
+                never: false,
                 nameInput: "",
                 date: "",
                 week: Number,
@@ -182,7 +189,8 @@ export default {
                 tuePeople: [],
                 wedPeople: [],
                 thurPeople: [], 
-                friPeople: []
+                friPeople: [],
+                neverPeople: []
             }
         },
   computed: {
@@ -220,6 +228,10 @@ export default {
         if (this.fri) {
            payload.days.push("fri")
           this.friPeople.push(this.nameInput)
+           }
+        if (this.never) {
+           payload.days.push("never")
+          this.neverPeople.push(this.nameInput)
            }
         payload.week = this.week
 
@@ -261,8 +273,8 @@ export default {
         if (vote.day === "wed") {this.wedPeople.push(vote.name)}
         if (vote.day === "thur") {this.thurPeople.push(vote.name)}
         if (vote.day === "fri") {this.friPeople.push(vote.name)}
-
-        console.log(this.wedPeople)
+        if (vote.day === "never") {this.neverPeople.push(vote.name)}
+        
       }
         },
 }
@@ -346,6 +358,11 @@ input:focus{
   border: 2px solid #ffcccc;
     padding:5px 15px 0px 40px;
     background: #ffcccc
+}
+#never + label {
+  border: 2px solid #e4e4e4;
+    padding:5px 15px 0px 40px;
+    background:#e4e4e4
 }
 [type="checkbox"]:checked + label:before,
 [type="checkbox"]:not(:checked) + label:before {

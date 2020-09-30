@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 
-const mongolink = process.env.MONGODB_URI;
+const mongolink = process.env.MONGODB_URI || 'mongodb://localhost:27017/teamevent';
 
 mongoose.connect(mongolink).then(
     () => { console.log('Database connection is successful') },
