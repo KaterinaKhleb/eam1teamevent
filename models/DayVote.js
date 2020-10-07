@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
-const DaySchema = mongoose.Schema({
+const GameSchema = mongoose.Schema({
     name: String,
-    day: String,
+    vote: String,
     weekNumber: Number
 }, {
     timestamps: true
 }, {
-    collection: 'dayvote'
+    collection: 'gamevote'
 });
 
-module.exports = mongoose.model('DayVote', DaySchema);
+module.exports = mongoose.model('GameVote', GameSchema);

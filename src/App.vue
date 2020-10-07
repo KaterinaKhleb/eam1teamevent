@@ -1,21 +1,23 @@
 <template>
   <div id="app">
 
-    <MainForm />
+    <!-- <MainForm v-if="this.$route.path == '/volleyball'" /> -->
+    
+     <router-view></router-view>
 
-    <!-- <MainList /> -->
 
   </div>
 </template>
 
 <script>
-import MainForm from './components/mainForm.vue'
-// import MainList from './components/mainList.vue'
+// import MainForm from './components/mainForm.vue'
+// import GameNight from './components/gameNight.vue'
+
 
 export default {
   name: 'App',
   components: {
-    MainForm,
+    // MainForm,
     // MainList,  
   }
 }

@@ -14,6 +14,8 @@ mongoose.connect(mongolink).then(
 mongoose.set('useFindAndModify', false);
 
 const dayVote = require('./models/DayVote');
+const gameVote = require('./models/GameVote');
+
 
 
 const app = express();
@@ -57,11 +59,39 @@ app.post('/deletevote', (req, res) => {
     });
 });
 
+app.post('/gamevotes', (req, res) => {
+    console.log(req.body)
+    gameVote.find({ weekNumber: req.body.week }, (err, votes) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(votes);
+        }
+    });
+});
 
+app.post('/savegamevote', (req, res) => {
+    let vote = req.body
+    let oneItem = new gameVote({ name: vote.name, weekNumber: vote.week, vote: vote.vote })
+    oneItem.save().then(note => {
+            console.log(note)
+        })
+        .catch(err => {
+            res.status(400).send("Error when saving to database");
+        });
+});
+
+app.post('/deletegamevote', (req, res) => {
+    console.log(req.body)
+    gameVote.deleteMany({ name: req.body.name }, (err, votes) => {
+        if (err) res.json(err);
+        else res.json({ 'message': 'Votes are successfully removed', 'votes': votes });
+    });
+});
 
 app.use('/*', express.static(path.join(__dirname, 'dist/index.html')));
 
 
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server on port ${port}`));
